@@ -42,6 +42,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
+		<dependency>
 			<!-- Model Mapper -->
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>

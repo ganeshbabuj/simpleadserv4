@@ -6,6 +6,11 @@ import com.example.simpleadserv4.resource.AdCollection;
 import com.example.simpleadserv4.resource.ActivationRequest;
 import com.example.simpleadserv4.security.Role;
 import com.example.simpleadserv4.service.AdService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +30,9 @@ import java.util.Random;
 @RequestMapping("/v1/marketing")
 public class AdController {
 
+    @Autowired
+    Environment environment;
+
     private AdService adService;
 
     public AdController(AdService AdService) {
@@ -34,7 +42,9 @@ public class AdController {
     @PostMapping("/activate")
     @ResponseStatus(code = HttpStatus.OK)
     public ActivationResponse activate(@RequestBody ActivationRequest activationRequest) {
-        return new ActivationResponse(new Random().nextLong(), "ACTIVATED");
+        System.out.println("ACTIVATION COMPLETED");
+        String port = environment.getProperty("local.server.port");
+        return new ActivationResponse(new Random().nextLong(), "ACTIVATED | SOURCE: " + port);
     }
 
     @GetMapping("/ads")
